@@ -1,10 +1,15 @@
 module.exports = function check(str, bracketsConfig) {
   // your solution
-    
-    console.log(str);
-    str=str.replace(/\(\)/,'').replace(/\(\)/,'').replace(/\(\)/,'').replace(/\(\)/,'');
-    if(str===''){
-        return true;
+    let configArr=[];
+    for(let i=0;i<bracketsConfig.length;i++){
+        configArr.push(new RegExp('\\'+bracketsConfig[i][0]+'\\'+bracketsConfig[i][1]));//bracketsConfig[i][0]+bracketsConfig[i][1]);
     }
-    else return false;
+    while(str!==''){
+        let tempStrChecker=str;
+        for(let i=0;i<configArr.length;i++){
+            str=str.replace(configArr[i],'');
+        }
+        if(tempStrChecker===str)break;
+    }
+    return str === '';
 }
